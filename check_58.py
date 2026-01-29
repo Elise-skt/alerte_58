@@ -3,7 +3,7 @@ import smtplib
 from email.message import EmailMessage
 import os
 
-OBJECTIF = 58_000_000
+OBJECTIF = 123_000_000
 
 def recuperer_jackpot():
     url = "https://www.lottoland.com/api/drawings/euromillions"
