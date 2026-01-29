@@ -6,9 +6,10 @@ import os
 OBJECTIF = 123_000_000
 
 def recuperer_jackpot():
-    url = "https://www.lottoland.com/api/drawings/euromillions"
+    url = "https://media.lfdj.com/draws/euromillions.json"
     donnees = requests.get(url).json()
-    return int(donnees["jackpot"]["amount"])
+    return int(donnees["last"]["jackpot"])
+
 
 def envoyer_email(jackpot):
     message = EmailMessage()
