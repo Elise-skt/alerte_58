@@ -14,14 +14,25 @@ def recuperer_jackpot():
 
 
 def envoyer_email(jackpot):
+    print("👉 Tentative d'envoi de l'email...")
+
     message = EmailMessage()
-    message["Subject"] = "🎉 EuroMillions à jouer !"
+    message["Subject"] = "🎉 TEST EuroMillions"
     message["From"] = os.environ["EMAIL_FROM"]
     message["To"] = os.environ["EMAIL_TO"]
     message.set_content(
-        f"Le jackpot EuroMillions est de {jackpot:,} €.\n"
-        f"C'est un multiple de 58 millions."
+        f"TEST : email envoyé avec jackpot = {jackpot}"
     )
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as serveur:
+        serveur.login(
+            os.environ["EMAIL_FROM"],
+            os.environ["EMAIL_PASSWORD"]
+        )
+        serveur.send_message(message)
+
+    print("✅ Email envoyé avec succès")
+
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as serveur:
         serveur.login(
