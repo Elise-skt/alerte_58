@@ -3,12 +3,14 @@ import smtplib
 from email.message import EmailMessage
 import os
 
+requests.packages.urllib3.disable_warnings()
+
 OBJECTIF = 123_000_000
 
 def recuperer_jackpot():
-    url = "https://media.lfdj.com/draws/euromillions.json"
-    donnees = requests.get(url).json()
-    return int(donnees["last"]["jackpot"])
+    url = "https://www.lottoland.com/api/drawings/euromillions"
+    donnees = requests.get(url, timeout=10).json()
+    return int(donnees["jackpot"]["amount"])
 
 
 def envoyer_email(jackpot):
@@ -33,4 +35,6 @@ def main():
     if jackpot >= OBJECTIF and jackpot % OBJECTIF == 0:
         envoyer_email(jackpot)
 
-main()
+def main():
+    envoyer_email(123_000_000)
+
